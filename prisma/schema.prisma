@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model ShortLink {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  url       String?  @db.VarChar(2000)
+
+  slug String @unique
+
+  @@index([slug])
+
+  // User      User[]
+}
+
+// model User {
+//   id Int @id @default(autoincrement())
+
+//   // fields = the foreign key - in this case it is the short link id
+//   // references is the primary key the foreign key is referencing to - in this case it is the id on the ShortLink table
+//   shortLink   ShortLink @relation(fields: [shortLinkId], references: [id], onDelete: Cascade)
+//   shortLinkId Int
+// }
