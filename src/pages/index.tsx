@@ -1,11 +1,7 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from "next";
 
 const Home: NextPage = () => {
-  return <h1 className='text-3xl font-bold underline'>Hello World!</h1>
-}
+  return <h1>Create Link page</h1>;
+};
 
-export default Home
-
+export default Home;
