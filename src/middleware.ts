@@ -9,6 +9,8 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
     return;
   }
 
+  // TODO: filter - retriving next bundled js will trigger a db request
+
   const slug = req.nextUrl.pathname.split("/").pop();
   const data = await (
     await fetch(`${req.nextUrl.origin}/api/get-url/${slug}`)
