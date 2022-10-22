@@ -3,7 +3,7 @@ import Head from "next/head";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-slate-700 py-2">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-slate-700 py-2 font-sans">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
