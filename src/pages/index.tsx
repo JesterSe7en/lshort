@@ -7,7 +7,8 @@ const Home: NextPage = () => {
 
   async function submitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const txtUrl = document.getElementById("txtbox_url") as HTMLInputElement;
+    const txtUrl = (document.getElementById("txtbox_url") as HTMLInputElement)
+      .value;
 
     // setState({ ...state, loading: true });
     // const response = await fetch(`http://127.0.0.01/user/register`, {
