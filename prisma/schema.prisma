@@ -19,9 +19,9 @@ model ShortLink {
 
   slug String @unique
 
-  @@index([slug])
-
   // User      User[]
+
+  @@index([slug])
 }
 
 // model User {
