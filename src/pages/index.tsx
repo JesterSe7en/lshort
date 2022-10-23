@@ -56,6 +56,7 @@ const Home: NextPage = () => {
               className="rounded-full bg-cyan-500 py-2 px-4 text-sm font-semibold text-white shadow-sm"
             />
           </form>
+          <p className="text-m flex w-full flex-wrap items-center justify-center text-white shadow-sm ">{</p>
         </div>
       </main>
 

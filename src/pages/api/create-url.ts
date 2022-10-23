@@ -13,11 +13,11 @@ export default async function CreateUrl(
 
   //validate url/sanitize
   const rawURL = new URL(req.url!, `http://${req.headers.host}`);
+
   if (rawURL.searchParams == null)
     return res.status(400).json({ message: "No query given" });
 
   var url = rawURL.searchParams.get("url");
-  console.log(url);
 
   if (url == null) return res.status(400).json({ message: "No query given" });
 
@@ -37,5 +37,5 @@ export default async function CreateUrl(
     res.status(500).json({ message: "Error creating short link" });
     return;
   }
-  res.status(200).json({ shortUrl: shortLink.slug });
+  res.status(200).json({ shortUrl: `${rawURL.origin}/${shortLink.slug} ` });
 }
