@@ -10,17 +10,21 @@ const Home: NextPage = () => {
     const txtUrl = (document.getElementById("txtbox_url") as HTMLInputElement)
       .value;
 
-    // setState({ ...state, loading: true });
-    // const response = await fetch(`http://127.0.0.01/user/register`, {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ email: "test@gmail.com", password: "test" }),
-    // });
-    // const content = await response.json();
-    // setState({ ...state, loading: false });
+    setState({ ...state, loading: true });
+    console.log("posting to /api/create-url");
+
+    const response = await fetch(`/api/create-url`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ url: txtUrl }),
+    });
+
+    const content = await response.json();
+
+    setState({ ...state, loading: false });
   }
 
   return (
