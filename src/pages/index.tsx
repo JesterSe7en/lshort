@@ -1,14 +1,16 @@
 import type { NextPage } from "next";
+import validator from "validator";
 import Head from "next/head";
-import React, { FormEventHandler, useState } from "react";
+import React, { useState } from "react";
 
 const Home: NextPage = () => {
   const [state, setState] = useState({ loading: false });
 
   async function submitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const txtUrl = (document.getElementById("txtbox_url") as HTMLInputElement)
+    const txtURL = (document.getElementById("txtbox_url") as HTMLInputElement)
       .value;
+    if (!validator.isURL(txtURL)) return;
 
     setState({ ...state, loading: true });
     console.log("posting to /api/create-url");
@@ -19,7 +21,7 @@ const Home: NextPage = () => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ url: txtUrl }),
+      body: JSON.stringify({ url: txtURL }),
     });
 
     const content = await response.json();
