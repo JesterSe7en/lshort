@@ -1,5 +1,4 @@
 import type { NextPage } from "next";
-import validator from "validator";
 import Head from "next/head";
 import React, { useState } from "react";
 
@@ -10,7 +9,6 @@ const Home: NextPage = () => {
     e.preventDefault();
     const txtURL = (document.getElementById("txtbox_url") as HTMLInputElement)
       .value;
-    if (!validator.isURL(txtURL)) return;
 
     setState({ ...state, loading: true });
     console.log("posting to /api/create-url");
@@ -33,7 +31,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-slate-700 py-2 font-sans">
       <Head>
-        <title>Create Next App</title>
+        <title>Link Shortener</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

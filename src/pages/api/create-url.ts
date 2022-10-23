@@ -12,17 +12,23 @@ export default async function CreateUrl(
   }
 
   //validate url/sanitize
-  let inputURL: string = req.query["url"]!.toString();
-  console.log(req.query["url"]);
+  const rawURL = new URL(req.url!, `http://${req.headers.host}`);
+  if (rawURL.searchParams == null)
+    return res.status(400).json({ message: "No query given" });
 
-  if (!validator.isURL(inputURL))
-    return res.status(500).json({ message: "Invalid url" });
+  var url = rawURL.searchParams.get("url");
+  console.log(url);
+
+  if (url == null) return res.status(400).json({ message: "No query given" });
+
+  if (!validator.isURL(url))
+    return res.status(400).json({ message: "Invalid url" });
 
   // apparently prepared statments is used internally for Prisma
   // https://github.com/prisma/prisma-client-js/issues/436
   const shortLink = await prisma?.shortLink.create({
     data: {
-      url: inputURL,
+      url: url,
       slug: randomUUID().slice(0, 8),
     },
   });
@@ -31,6 +37,5 @@ export default async function CreateUrl(
     res.status(500).json({ message: "Error creating short link" });
     return;
   }
-
   res.status(200).json({ shortUrl: shortLink.slug });
 }
