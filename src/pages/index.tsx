@@ -23,6 +23,7 @@ const Home: NextPage = () => {
     });
 
     const content = await response.json();
+    console.log(content.message);
 
     setState({ ...state, loading: false });
   }
