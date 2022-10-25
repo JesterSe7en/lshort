@@ -13,8 +13,10 @@ const Home: NextPage = () => {
     setState({ ...state, loading: true });
     console.log("posting to /api/create-url");
 
+    const u = "/api/create-url/?" + new URLSearchParams({ url: txtURL });
+
     const response = await fetch(
-      `/api/create-url` + new URLSearchParams({ url: txtURL }),
+      "/api/create-url/?" + new URLSearchParams({ url: txtURL }),
       {
         method: "POST",
         headers: {
@@ -27,8 +29,8 @@ const Home: NextPage = () => {
     const content = await response.json();
 
     if (response.ok) {
-      setState({ ...state, loading: false, url: content.url });
-      console.log(content.url);
+      setState({ ...state, loading: false, url: content.shortUrl });
+      console.log(content.shortUrl);
     } else {
       setState({ ...state, loading: false, url: "" });
     }
@@ -62,9 +64,12 @@ const Home: NextPage = () => {
               className="rounded-full bg-cyan-500 py-2 px-4 text-sm font-semibold text-white shadow-sm"
             />
           </form>
-          <p className="text-m flex w-full flex-wrap items-center justify-center text-white shadow-sm ">
+          <a
+            href={state.url}
+            className="text-m flex w-full flex-wrap items-center justify-center text-white shadow-sm "
+          >
             {state.url}
-          </p>
+          </a>
         </div>
       </main>
 
