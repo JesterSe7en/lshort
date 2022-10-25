@@ -3,7 +3,7 @@ import Head from "next/head";
 import React, { useState } from "react";
 
 const Home: NextPage = () => {
-  const [state, setState] = useState({ loading: false });
+  const [state, setState] = useState({ loading: false, url: "" });
 
   async function submitForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -13,19 +13,25 @@ const Home: NextPage = () => {
     setState({ ...state, loading: true });
     console.log("posting to /api/create-url");
 
-    const response = await fetch(`/api/create-url`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ url: txtURL }),
-    });
+    const response = await fetch(
+      `/api/create-url` + new URLSearchParams({ url: txtURL }),
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const content = await response.json();
-    console.log(content.message);
 
-    setState({ ...state, loading: false });
+    if (response.ok) {
+      setState({ ...state, loading: false, url: content.url });
+      console.log(content.url);
+    } else {
+      setState({ ...state, loading: false, url: "" });
+    }
   }
 
   return (
@@ -56,7 +62,9 @@ const Home: NextPage = () => {
               className="rounded-full bg-cyan-500 py-2 px-4 text-sm font-semibold text-white shadow-sm"
             />
           </form>
-          <p className="text-m flex w-full flex-wrap items-center justify-center text-white shadow-sm ">{</p>
+          <p className="text-m flex w-full flex-wrap items-center justify-center text-white shadow-sm ">
+            {state.url}
+          </p>
         </div>
       </main>
 
