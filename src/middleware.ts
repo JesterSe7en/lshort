@@ -1,22 +1,22 @@
-import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
+import { NextFetchEvent, NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(req: NextRequest, ev: NextFetchEvent) {
-  if (req.nextUrl.pathname.startsWith("/api/get-url")) {
-    console.log("returning early");
-    return;
+  if (req.nextUrl.pathname.startsWith('/api/get-url')) {
+    console.log('returning early')
+    return
   }
-  if (req.nextUrl.pathname.valueOf() == "/") {
-    return;
+  if (req.nextUrl.pathname.valueOf() == '/') {
+    return
   }
 
   // TODO: filter - retriving next bundled js will trigger a db request
 
-  const slug = req.nextUrl.pathname.split("/").pop();
+  const slug = req.nextUrl.pathname.split('/').pop()
   const data = await (
     await fetch(`${req.nextUrl.origin}/api/get-url/${slug}`)
-  ).json();
+  ).json()
 
   if (data?.url) {
-    return NextResponse.redirect(data.url);
+    return NextResponse.redirect(data.url)
   }
 }

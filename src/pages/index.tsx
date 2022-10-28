@@ -1,38 +1,38 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import React, { useState } from "react";
+import type { NextPage } from 'next'
+import Head from 'next/head'
+import React, { useState } from 'react'
 
 const Home: NextPage = () => {
-  const [state, setState] = useState({ loading: false, url: "" });
+  const [state, setState] = useState({ loading: false, url: '' })
 
   async function submitForm(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const txtURL = (document.getElementById("txtbox_url") as HTMLInputElement)
-      .value;
+    e.preventDefault()
+    const txtURL = (document.getElementById('txtbox_url') as HTMLInputElement)
+      .value
 
-    setState({ ...state, loading: true });
-    console.log("posting to /api/create-url");
+    setState({ ...state, loading: true })
+    console.log('posting to /api/create-url')
 
-    const u = "/api/create-url/?" + new URLSearchParams({ url: txtURL });
+    const u = '/api/create-url/?' + new URLSearchParams({ url: txtURL })
 
     const response = await fetch(
-      "/api/create-url/?" + new URLSearchParams({ url: txtURL }),
+      '/api/create-url/?' + new URLSearchParams({ url: txtURL }),
       {
-        method: "POST",
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
       }
-    );
+    )
 
-    const content = await response.json();
+    const content = await response.json()
 
     if (response.ok) {
-      setState({ ...state, loading: false, url: content.shortUrl });
-      console.log(content.shortUrl);
+      setState({ ...state, loading: false, url: content.shortUrl })
+      console.log(content.shortUrl)
     } else {
-      setState({ ...state, loading: false, url: "" });
+      setState({ ...state, loading: false, url: '' })
     }
   }
 
@@ -79,7 +79,7 @@ const Home: NextPage = () => {
         </p>
       </footer>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
