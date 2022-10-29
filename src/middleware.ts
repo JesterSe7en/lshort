@@ -10,7 +10,6 @@ export async function middleware(req: NextRequest, ev: NextFetchEvent) {
   }
 
   if (req.nextUrl.pathname.startsWith('/_next/static')) {
-    console.log('returning due to next files')
     return
   }
 
